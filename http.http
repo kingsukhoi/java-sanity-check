@@ -1,0 +1,5 @@
+### GET hello world
+GET http://localhost:8080/hello
+
+### GET die
+GET http://localhost:8080/die
