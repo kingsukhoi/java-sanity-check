@@ -3,3 +3,10 @@ GET http://localhost:8080/hello
 
 ### GET die
 GET http://localhost:8080/die
+
+### GET
+GET http://localhost:8080/
+Head1: value
+
+### GET headerinfo
+GET http://localhost:8080/headerinfo
