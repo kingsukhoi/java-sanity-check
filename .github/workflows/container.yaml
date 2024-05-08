@@ -5,6 +5,9 @@ on:
     branches: [ "master" ]
 jobs:
   build:
+    concurrency: 
+      group: "build-container"
+      cancel-in-progress: true
     runs-on: ubuntu-latest
     permissions:
       packages: write
