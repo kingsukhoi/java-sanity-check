@@ -35,9 +35,12 @@ jobs:
           path: ./pack-cache
           key: "${{ hashFiles('build.gradle') }}"
       - name: Build Container
+        id: build
         run: |
           pack build --publish ghcr.io/${{github.repository}}:${{ github.sha }} -t ghcr.io/${{github.repository}}:latest \
             -t ghcr.io/${{github.repository}}:${{ steps.shortsha.outputs.sha_short }} -B paketobuildpacks/builder-jammy-base --cache='type=build;format=bind;source=./pack-cache'
           docker pull ghcr.io/${{github.repository}}:${{ github.sha }} > /dev/null
-          docker image inspect ghcr.io/${{github.repository}}:${{ github.sha }} 
-
+          echo "image_sha=$(docker image inspect ghcr.io/${{github.repository}}:${{ github.sha }} | jq '.[0].RepoDigests[0]' | cut -d ':' -f 2)" >> $GITHUB_OUTPUT
+      - name: test image sha
+        run: |
+          echo ${{steps.build.outputs.image_sha}}
