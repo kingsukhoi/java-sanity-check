@@ -40,7 +40,7 @@ jobs:
       - name: Build Container
         id: build
         run: |
-          pack build --publish ghcr.io/${{github.repository}}:${{ github.sha }} -t ghcr.io/${{github.repository}}:latest \
+          pack build --publish ghcr.io/${{github.repository}}:${{ github.sha }} -t ghcr.io/${{github.repository}}:latest -e BP_NATIVE_IMAGE=true  \
             -t ghcr.io/${{github.repository}}:${{ steps.shortsha.outputs.sha_short }} -B paketobuildpacks/builder-jammy-base --cache='type=build;format=bind;source=./pack-cache'
           docker pull ghcr.io/${{github.repository}}:${{ github.sha }} > /dev/null
           echo "image_sha=$(docker image inspect ghcr.io/${{github.repository}}:${{ github.sha }} | jq '.[0].RepoDigests[0]' | cut -d ':' -f 2 | cut -d '"' -f 1)" >> $GITHUB_OUTPUT
