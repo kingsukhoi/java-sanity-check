@@ -57,7 +57,7 @@ jobs:
       - name: Run Trivy scanner
         uses: aquasecurity/trivy-action@0.29.0
         with:
-          image-ref: 'ghcr.io/kingsukhoi/random-exporters:${{ github.sha }}'          
+          image-ref: 'ghcr.io/${{github.repository}}:${{ github.sha }}'          
           output: trivy.txt
           ignore-unfixed: true
       - name: Publish Trivy Output to Summary
